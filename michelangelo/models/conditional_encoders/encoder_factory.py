@@ -551,7 +551,7 @@ class MoECLIPImageEncoder(nn.Module):
 
         if zero_embedding_radio > 0:
             mask = torch.rand((len(image), 1, 1), device=z.device, dtype=z.dtype) >= zero_embedding_radio
-            z = z + mask.to(z)
+            z = z * mask.to(z)
 
         if self.num_projection_vector > 0:
             z = self.projection(z).view(len(image), self.num_projection_vector, -1)
